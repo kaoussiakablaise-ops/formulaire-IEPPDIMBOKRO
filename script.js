@@ -846,32 +846,19 @@ function enregistrerEtExporter() {
 
     });
 
-    fetch(URL_SCRIPT, {
+    const formData = new FormData();
+formData.append("data", JSON.stringify(data));
 
-        method: "POST",
-
-        headers: {
-            "Content-Type": "application/json"
-        },
-
-        body: JSON.stringify({
-            data: data
-        })
-
-    })
-
-    .then(response => response.text())
-
-    .then(result => {
-
-        alert(result);
-
-    })
-
-    .catch(error => {
-
-        alert("Erreur : " + error);
-
-    });
+fetch(URL_SCRIPT, {
+    method: "POST",
+    body: formData
+})
+.then(response => response.text())
+.then(result => {
+    alert("Données envoyées avec succès !");
+})
+.catch(error => {
+    alert("Erreur : " + error);
+});
 
 }
