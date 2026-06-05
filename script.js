@@ -1,4 +1,4 @@
-const URL_SCRIPT ="https://script.google.com/macros/s/AKfycbxnJhY9T4vsHLhx7dLsR79eOJCNnpMp8qQRN5Wxia8S5ay9byNc8vTw6QBcD2hUzlsZxg/exec";
+const URL_SCRIPT ="https://script.google.com/macros/s/AKfycbycm3I8XyhCdqTMnSUQ0NMV1aq7pzbmjeVAkGDu6fWMM9t2I21auMLk2p88cgkeMx246A/exec";
 // Vérification au chargement
 function verifierConnexion() {
 
@@ -816,49 +816,79 @@ function enregistrerEtExporter() {
 
     document.querySelectorAll("tbody tr").forEach(row => {
 
-        const inputs = row.querySelectorAll("input");
+        const inputs  = row.querySelectorAll("input");
         const selects = row.querySelectorAll("select");
 
+        const cours = row.querySelector(".cours")?.value || "";
+        if (!cours) return;
+
+        // Debug : affiche tous les inputs dans la console
+        inputs.forEach((inp, i) => {
+            console.log("input[" + i + "] = " + inp.value);
+        });
+
         const ligne = {
-
-            secteur: inputs[0]?.value || "",
-            commune: inputs[1]?.value || "",
-            conseiller: inputs[2]?.value || "",
-            ecole: inputs[3]?.value || "",
-            milieu: inputs[4]?.value || "",
-            nom: inputs[6]?.value || "",
-
-            situation: selects[0]?.value || "",
-            genre: selects[1]?.value || "",
-            emploi: selects[2]?.value || "",
-            fonction: selects[3]?.value || "",
-
-            matricule: inputs[8]?.value || "",
-
-            cours: row.querySelector(".cours")?.value || "",
-
-            contact: inputs[26]?.value || "",
-            email: inputs[27]?.value || ""
-
+            secteur:          inputs[0]?.value  || "",
+            commune:          inputs[1]?.value  || "",
+            conseiller:       inputs[2]?.value  || "",
+            ecole:            inputs[3]?.value  || "",
+            milieu:           inputs[4]?.value  || "",
+            numero:           inputs[5]?.value  || "",
+            nom:              inputs[6]?.value  || "",
+            situation:        selects[0]?.value || "",
+            nbre_enfants:     inputs[7]?.value  || "",
+            genre:            selects[1]?.value || "",
+            matricule:        inputs[8]?.value  || "",
+            date_naissance:   inputs[9]?.value  || "",
+            lieu_naissance:   inputs[10]?.value || "",
+            emploi:           selects[2]?.value || "",
+            fonction:         selects[3]?.value || "",
+            prise_service:    inputs[11]?.value || "",
+            date_drena:       inputs[12]?.value || "",
+            date_iepp:        inputs[13]?.value || "",
+            date_poste:       inputs[14]?.value || "",
+            grade:            inputs[15]?.value || "",
+            annees_service:   inputs[16]?.value || "",
+            classe:           inputs[17]?.value || "",
+            echelon:          inputs[18]?.value || "",
+            date_retraite:    inputs[19]?.value || "",
+            annees_restantes: inputs[20]?.value || "",
+            nb_cours:         inputs[21]?.value || "",
+            cours:            cours,
+            eff_gar:          inputs[22]?.value || "",
+            eff_fill:         inputs[23]?.value || "",
+            eff_ti:           inputs[24]?.value || "",
+            eff_gi:           inputs[25]?.value || "",
+            contact:          inputs[26]?.value || "",
+            email:            inputs[27]?.value || "",
+            mps:              inputs[28]?.value || "",
+            mms:              inputs[29]?.value || "",
+            mgs:              inputs[30]?.value || "",
+            cpu:              inputs[31]?.value || "",
+            cpp:              inputs[32]?.value || "",
+            cp1:              inputs[33]?.value || "",
+            cp2:              inputs[34]?.value || "",
+            ce1:              inputs[35]?.value || "",
+            ce2:              inputs[36]?.value || "",
+            cm1:              inputs[37]?.value || "",
+            cm2:              inputs[38]?.value || ""
         };
 
         data.push(ligne);
-
     });
 
     const formData = new FormData();
-formData.append("data", JSON.stringify(data));
+    formData.append("data", JSON.stringify(data));
 
-fetch(URL_SCRIPT, {
-    method: "POST",
-    body: formData
-})
-.then(response => response.text())
-.then(result => {
-    alert("Données envoyées avec succès !");
-})
-.catch(error => {
-    alert("Erreur : " + error);
-});
-
+    fetch(URL_SCRIPT, {
+        method: "POST",
+        body: formData
+    })
+    .then(response => response.text())
+    .then(result => {
+        alert("Données envoyées avec succès !");
+    })
+    .catch(error => {
+        alert("Erreur : " + error);
+    });
 }
