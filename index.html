@@ -1647,6 +1647,10 @@ resumeHead.innerHTML = `
     });
 
     alert("Enregistrement terminé !");
+
+// Force l'affichage du tableau résumé sur mobile
+document.getElementById("tableResume").style.display = "table";
+document.getElementById("tableResume").closest("div").style.display = "block";
 }
 </script>
 <h2 style="margin-top:50px;">
