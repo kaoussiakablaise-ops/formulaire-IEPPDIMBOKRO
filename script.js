@@ -884,11 +884,24 @@ function enregistrerEtExporter() {
         method: "POST",
         body: formData
     })
-    .then(response => response.text())
+   .then(response => response.text())
     .then(result => {
         alert("Données envoyées avec succès !");
+        afficherResume();
     })
     .catch(error => {
         alert("Erreur : " + error);
+        afficherResume();
     });
+}
+
+function afficherResume() {
+    const container = document.getElementById("resume-container");
+    const table = document.getElementById("tableResume");
+    if (container) {
+        container.style.cssText = "display:block !important; overflow-x:auto; width:100%;";
+    }
+    if (table) {
+        table.style.cssText = "display:table !important; width:100%; min-width:unset; border-collapse:collapse; font-size:9px; white-space:nowrap;";
+    }
 }
