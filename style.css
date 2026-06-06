@@ -1,179 +1,222 @@
 body {
-            font-family: Arial, sans-serif;
-            margin: 20px;
-            background-color: #f4f4f9;
-        }
-        .table-container {
-            overflow-x: auto;
-            max-width: 100%;
-            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-            border-radius: 4px;
-        }
-        table {
-            border-collapse: collapse;
-            font-size: 11px;
-            width: 100%;
-            white-space: nowrap;
-        }
-        th {
-            background-color: #ffe6cc;
-            color: #800000;
-            font-weight: bold;
-            text-align: center;
-            padding: 8px 4px;
-            border: 1px solid #a6a6a6;
-            font-size: 10px;
-            text-transform: uppercase;
-        }
-        td {
-            border: 1px solid #a6a6a6;
-            padding: 0;
-            height: 28px;
-        }
-        input {
-            width: 100%;
-            height: 100%;
-            border: none;
-            box-sizing: border-box;
-            padding: 0 4px;
-            font-size: 11px;
-            background: transparent;
-        }
-        input:focus {
-            outline: 2px solid #0056b3;
-            background-color: #ffffff;
-        }
-        /* Zones d'instructions à gauche */
-        .instruction-cell {
-            background-color: #000000;
-            color: #ffffff;
-            font-weight: bold;
-            font-size: 11px;
-            padding: 5px;
-            line-height: 1.4;
-            vertical-align: top;
-        }
-        /* Couleurs des cellules selon la consigne */
-        .cell-bleu {
-            background-color: #00b0f0 !important;
-            color: #ffffff;
-        }
-        .cell-bleu input {
+    font-family: Arial, sans-serif;
+    margin: 20px;
+    background-color: #f4f4f9;
+}
+
+.table-container {
+    overflow-x: auto;
+    max-width: 100%;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    border-radius: 4px;
+    display: none;
+}
+
+table {
+    border-collapse: collapse;
+    font-size: 11px;
+    width: 100%;
+    white-space: nowrap;
+}
+
+th {
+    background-color: #ffe6cc;
+    color: #800000;
+    font-weight: bold;
+    text-align: center;
+    padding: 8px 4px;
+    border: 1px solid #a6a6a6;
+    font-size: 10px;
+    text-transform: uppercase;
+}
+
+td {
+    border: 1px solid #a6a6a6;
+    padding: 0;
+    height: 28px;
+}
+
+input {
+    width: 100%;
+    height: 100%;
+    border: none;
+    box-sizing: border-box;
+    padding: 0 4px;
+    font-size: 11px;
+    background: transparent;
+}
+
+input:focus {
+    outline: 2px solid #0056b3;
+    background-color: #ffffff;
+}
+
+.instruction-cell {
+    background-color: #000000;
+    color: #ffffff;
+    font-weight: bold;
+    font-size: 11px;
+    padding: 5px;
+    line-height: 1.4;
+    vertical-align: top;
+}
+
+.cell-bleu {
+    background-color: #00b0f0 !important;
+    color: #ffffff;
+}
+
+.cell-bleu input {
     color: #000000;
     font-weight: bold;
 }
+
 .cell-bleu input::placeholder {
     color: #000000;
     opacity: 1;
 }
-        .cell-blanc {
-            background-color: #ffffff;
-        }
-        .cell-vert {
-            background-color: #00b050;
-        }
-        .cell-jaune {
-            background-color: #ffff00;
-        }
-        .cell-noir {
-            background-color: #000000;
-        }
-        /* Classes spécifiques pour les inputs bloqués */
-        .readonly-input {
-            pointer-events: none;
-            text-align: center;
-            font-weight: bold;
-        }
-        .cell-vert input, .cell-jaune input {
-            color: #000000;
-        }
-        .email-large input{
+
+.cell-blanc {
+    background-color: #ffffff;
+}
+
+.cell-vert {
+    background-color: #00b050;
+}
+
+.cell-jaune {
+    background-color: #ffff00;
+}
+
+.cell-noir {
+    background-color: #000000;
+}
+
+.readonly-input {
+    pointer-events: none;
+    text-align: center;
+    font-weight: bold;
+}
+
+.cell-vert input, .cell-jaune input {
+    color: #000000;
+}
+
+.email-large input {
     width: 7cm !important;
     min-width: 7cm;
 }
-.contact-large input{
+
+.contact-large input {
     width: 4cm !important;
     min-width: 4cm;
 }
-.lieu-nais input{
+
+.lieu-nais input {
     width: 4cm !important;
     min-width: 4cm;
 }
-#login-page{
+
+/* ==============================
+   PAGE DE CONNEXION
+============================== */
+
+#login-page {
     position: fixed;
-    top:0;
-    left:0;
-    width:100%;
-    height:100%;
-    background:#f4f4f9;
-    display:flex;
-    justify-content:center;
-    align-items:center;
-    z-index:99999;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: #f4f4f9;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    z-index: 99999;
 }
 
-
-.login-box{
-    background:white;
-    padding:40px;
-    border-radius:10px;
-    box-shadow:0 0 15px rgba(0,0,0,0.2);
-    text-align:center;
-    width:350px;
+.login-box {
+    background: white;
+    padding: 50px 60px;
+    border-radius: 10px;
+    box-shadow: 0 0 20px rgba(0,0,0,0.2);
+    text-align: center;
+    width: 80%;
+    max-width: 900px;
 }
 
-.login-box h2{
-    margin-bottom:20px;
-    color:#800000;
+.login-box h2 {
+    margin-bottom: 30px;
+    color: #800000;
+    font-size: 18px;
+    text-transform: uppercase;
+    line-height: 1.6;
 }
 
-.login-box input{
-    width:100%;
-    height:45px;
-    border:1px solid #ccc;
-    margin-bottom:15px;
-    padding:10px;
-    font-size:16px;
+.login-box input[type="password"] {
+    width: 80%;
+    height: 50px;
+    border: 2px solid #800000;
+    border-radius: 5px;
+    margin-bottom: 20px;
+    padding: 10px;
+    font-size: 16px;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
 }
 
-.login-box button{
-    width:100%;
-    height:45px;
-    background:#00b050;
-    color:white;
-    border:none;
-    font-weight:bold;
-    cursor:pointer;
+.login-box button {
+    width: 80%;
+    height: 50px;
+    background: #00b050;
+    color: white;
+    border: none;
+    font-weight: bold;
+    cursor: pointer;
+    font-size: 16px;
+    border-radius: 5px;
 }
 
-.login-box button:hover{
-    background:#008a3d;
+.login-box button:hover {
+    background: #008a3d;
 }
 
-#message-erreur{
-    color:red;
-    margin-top:10px;
-    font-weight:bold;
+#message-erreur {
+    color: red;
+    margin-top: 10px;
+    font-weight: bold;
 }
-#btn-enregistrer{
-    position:fixed;
-    bottom:20px;
-    right:20px;
-    padding:15px 30px;
-    background:#28a745;
-    color:white;
-    border:none;
-    font-size:16px;
-    font-weight:bold;
-    cursor:pointer;
-    border-radius:8px;
-    z-index:9999;
+
+/* ==============================
+   BOUTON ENREGISTRER
+============================== */
+
+#btn-enregistrer {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    padding: 15px 30px;
+    background: #28a745;
+    color: white;
+    border: none;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    border-radius: 8px;
+    z-index: 9999;
 }
+
+/* ==============================
+   MESSAGE DEFILANT
+============================== */
+
 .flash-info {
     background: #ffcc00;
     padding: 10px;
     overflow: hidden;
     border-bottom: 2px solid #000;
+    width: 100%;
 }
 
 .flash-text {
@@ -181,17 +224,18 @@ body {
     white-space: nowrap;
     font-weight: bold;
     padding-left: 100%;
-    animation: defilement 80s linear infinite; /* 👈 légèrement plus lent */
+    animation: defilement 80s linear infinite;
 }
+
 @keyframes defilement {
-    0% {
-        transform: translateX(0%);
-    }
-    100% {
-        transform: translateX(-100%);
-    }
+    0% { transform: translateX(0%); }
+    100% { transform: translateX(-100%); }
 }
-/* VERSION MOBILE */
+
+/* ==============================
+   VERSION MOBILE
+============================== */
+
 @media screen and (max-width: 768px) {
 
     body {
@@ -205,7 +249,7 @@ body {
     }
 
     table {
-        min-width: 2500px; /* adapte selon le nombre de colonnes */
+        min-width: 2500px;
         border-collapse: collapse;
     }
 
@@ -214,16 +258,26 @@ body {
         font-size: 11px;
     }
 
-    input,
-    select,
-    button {
+    input, select, button {
         font-size: 12px;
         min-height: 35px;
     }
 
     .login-box {
         width: 95%;
-        padding: 10px;
+        padding: 30px 20px;
+    }
+
+    .login-box h2 {
+        font-size: 14px;
+    }
+
+    .login-box input[type="password"] {
+        width: 95%;
+    }
+
+    .login-box button {
+        width: 95%;
     }
 
     .flash-info {
@@ -239,13 +293,4 @@ body {
         font-size: 14px;
         text-align: center;
     }
-
-    button {
-        width: 100%;
-        padding: 10px;
-        margin-top: 5px;
-    }
-}
-.table-container {
-    display: none;
 }
