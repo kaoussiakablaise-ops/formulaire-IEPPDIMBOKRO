@@ -263,6 +263,21 @@ input:focus {
         min-height: 35px;
     }
 
+    #tableResume {
+        display: block !important;
+        overflow-x: auto;
+        width: 100%;
+        font-size: 9px;
+        white-space: nowrap;
+    }
+
+    #tableResume th,
+    #tableResume td {
+        padding: 3px;
+        font-size: 9px;
+        min-width: 60px;
+    }
+
     .login-box {
         width: 95%;
         padding: 30px 20px;
