@@ -253,6 +253,14 @@ input:focus {
         border-collapse: collapse;
     }
 
+    #tableResume,
+    #tableResume thead,
+    #tableResume tbody,
+    #tableResume tr {
+        min-width: unset !important;
+        width: auto !important;
+    }
+
     th, td {
         padding: 4px;
         font-size: 11px;
@@ -263,12 +271,13 @@ input:focus {
         min-height: 35px;
     }
 
-    #tableResume {
-        display: block !important;
+   #tableResume {
+        display: table !important;
         overflow-x: auto;
-        width: 100%;
+        width: 100% !important;
         font-size: 9px;
         white-space: nowrap;
+        min-width: unset !important;
     }
 
     #tableResume th,
