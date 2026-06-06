@@ -248,7 +248,7 @@ input:focus {
         width: 100%;
     }
 
-    table {
+   table:not(#tableResume) {
         min-width: 2500px;
         border-collapse: collapse;
     }
