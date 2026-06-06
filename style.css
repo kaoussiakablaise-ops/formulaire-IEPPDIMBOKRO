@@ -137,22 +137,21 @@ input:focus {
 
 .login-box {
     background: white;
-    padding: 50px 60px;
+    padding: 30px 40px;
     border-radius: 10px;
     box-shadow: 0 0 20px rgba(0,0,0,0.2);
     text-align: center;
-    width: 80%;
-    max-width: 900px;
+    width: 45%;
+    max-width: 550px;
 }
 
 .login-box h2 {
-    margin-bottom: 30px;
+    margin-bottom: 20px;
     color: #800000;
-    font-size: 18px;
+    font-size: 13px;
     text-transform: uppercase;
-    line-height: 1.6;
+    line-height: 1.5;
 }
-
 .login-box input[type="password"] {
     width: 80%;
     height: 50px;
