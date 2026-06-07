@@ -28,7 +28,6 @@ document.addEventListener("DOMContentLoaded", function () {
 
     const lignes = document.querySelectorAll("tbody tr");
 
-    // Fonction de synchronisation
     function synchroniserColonne(indexColonneBleue) {
 
         let champs = [];
@@ -38,11 +37,9 @@ document.addEventListener("DOMContentLoaded", function () {
             const cellulesBleues = ligne.querySelectorAll("td.cell-bleu");
 
             if(cellulesBleues[indexColonneBleue]) {
-
                 champs.push(
                     cellulesBleues[indexColonneBleue].querySelector("input")
                 );
-
             }
 
         });
@@ -63,27 +60,16 @@ document.addEventListener("DOMContentLoaded", function () {
 
     }
 
-    // 0 = secteur
     synchroniserColonne(0);
-
-    // 1 = commune
     synchroniserColonne(1);
-
-    // 2 = conseiller
     synchroniserColonne(2);
-
-    // 3 = école
     synchroniserColonne(3);
-
-    // 4 = milieu
     synchroniserColonne(4);
-// 5 = code école
-synchroniserColonne(5);
+    synchroniserColonne(5);
 });
 
 document.addEventListener("DOMContentLoaded", function () {
 
-    // Sélectionne tous les champs date
     const champsDate = document.querySelectorAll('input[placeholder="JJ/MM/AAAA"]');
 
     champsDate.forEach(input => {
@@ -109,7 +95,6 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 
 });
-
 
 document.addEventListener("DOMContentLoaded", function () {
 
@@ -142,82 +127,6 @@ document.addEventListener("DOMContentLoaded", function () {
 
 });
 
-
-document.addEventListener("DOMContentLoaded", function () {
-
-    const lignes = document.querySelectorAll("tbody tr");
-
-    lignes.forEach(ligne => {
-
-        // 1ère PRISE DE SERVICE
-        const dateService = ligne.querySelectorAll(".champ-date")[0];
-
-        // Champ années de service
-        const anneesService = ligne.querySelector(".annees-service");
-
-        if (dateService && anneesService) {
-
-            function calculerAnnees() {
-
-                const valeur = dateService.value.trim();
-
-                // Vérifie format JJ/MM/AAAA
-                const regex = /^(\d{2})\/(\d{2})\/(\d{4})$/;
-
-                if (!regex.test(valeur)) {
-                    anneesService.value = "";
-                    return;
-                }
-
-                const parties = valeur.split("/");
-
-                const jour = parseInt(parties[0], 10);
-                const mois = parseInt(parties[1], 10) - 1;
-                const annee = parseInt(parties[2], 10);
-
-                const dateEntree = new Date(annee, mois, jour);
-
-                // Vérifie date valide
-                if (
-                    dateEntree.getDate() !== jour ||
-                    dateEntree.getMonth() !== mois ||
-                    dateEntree.getFullYear() !== annee
-                ) {
-                    anneesService.value = "";
-                    return;
-                }
-
-                const aujourdHui = new Date();
-
-                let annees =
-                    aujourdHui.getFullYear() - dateEntree.getFullYear();
-
-                // Ajustement anniversaire
-                const moisActuel = aujourdHui.getMonth();
-                const jourActuel = aujourdHui.getDate();
-
-                if (
-                    moisActuel < mois ||
-                    (moisActuel === mois && jourActuel < jour)
-                ) {
-                    annees--;
-                }
-
-                anneesService.value = annees >= 0 ? annees : 0;
-            }
-
-            // Calcul automatique
-            dateService.addEventListener("input", calculerAnnees);
-
-            // Calcul au chargement
-            calculerAnnees();
-        }
-
-    });
-
-});
-
-
 document.addEventListener("DOMContentLoaded", function () {
 
     const lignes = document.querySelectorAll("tbody tr");
@@ -225,7 +134,6 @@ document.addEventListener("DOMContentLoaded", function () {
     lignes.forEach(ligne => {
 
         const dateService = ligne.querySelectorAll(".champ-date")[0];
-
         const champAnnees = ligne.querySelector(".annees-service");
         const champClasse = ligne.querySelector(".classe-avancement");
         const champEchelon = ligne.querySelector(".echelon");
@@ -233,11 +141,9 @@ document.addEventListener("DOMContentLoaded", function () {
         function calculerTout() {
 
             const valeur = dateService.value.trim();
-
             const regex = /^(\d{2})\/(\d{2})\/(\d{4})$/;
 
             if (!regex.test(valeur)) {
-
                 champAnnees.value = "";
                 champClasse.value = "";
                 champEchelon.value = "";
@@ -245,11 +151,9 @@ document.addEventListener("DOMContentLoaded", function () {
             }
 
             const parties = valeur.split("/");
-
             const jour = parseInt(parties[0], 10);
             const mois = parseInt(parties[1], 10) - 1;
             const annee = parseInt(parties[2], 10);
-
             const dateEntree = new Date(annee, mois, jour);
 
             if (
@@ -257,7 +161,6 @@ document.addEventListener("DOMContentLoaded", function () {
                 dateEntree.getMonth() !== mois ||
                 dateEntree.getFullYear() !== annee
             ) {
-
                 champAnnees.value = "";
                 champClasse.value = "";
                 champEchelon.value = "";
@@ -265,157 +168,89 @@ document.addEventListener("DOMContentLoaded", function () {
             }
 
             const aujourdHui = new Date();
-
-            let annees =
-                aujourdHui.getFullYear() - dateEntree.getFullYear();
+            let annees = aujourdHui.getFullYear() - dateEntree.getFullYear();
 
             if (
                 aujourdHui.getMonth() < mois ||
-                (
-                    aujourdHui.getMonth() === mois &&
-                    aujourdHui.getDate() < jour
-                )
+                (aujourdHui.getMonth() === mois && aujourdHui.getDate() < jour)
             ) {
                 annees--;
             }
 
             if (annees < 0) annees = 0;
 
-            // =========================
-            // ANNEES SERVICE
-            // =========================
             champAnnees.value = annees;
 
             // =========================
-            // ECHELON
-            // =========================
-            let echelon = Math.floor(annees / 2) + 1;
-
-            if (echelon > 12) {
-                echelon = 12;
-            }
-
-            champEchelon.value = echelon;
-
-            // =========================
-            // CLASSE
+            // CLASSE + ECHELON
             // =========================
             let classe = "";
+            let echelon = "";
 
-            if (annees < 5) {
-                classe = "2ème Classe";
-            }
-            else if (annees < 10) {
-                classe = "1ère Classe";
-            }
-            else if (annees < 15) {
-                classe = "Classe Principale";
-            }
-            else if (annees < 20) {
-                classe = "Classe Exceptionnelle";
-            }
-            else {
-                classe = "Hors Classe";
+            if (annees <= 1) {
+                classe = "2e classe"; echelon = "1er échelon";
+            } else if (annees <= 3) {
+                classe = "2e classe"; echelon = "2e échelon";
+            } else if (annees <= 5) {
+                classe = "2e classe"; echelon = "3e échelon";
+            } else if (annees <= 7) {
+                classe = "2e classe"; echelon = "4e échelon";
+            } else if (annees <= 9) {
+                classe = "1re classe"; echelon = "1er échelon";
+            } else if (annees <= 11) {
+                classe = "1re classe"; echelon = "2e échelon";
+            } else if (annees <= 13) {
+                classe = "1re classe"; echelon = "3e échelon";
+            } else if (annees <= 15) {
+                classe = "Classe principale"; echelon = "1er échelon";
+            } else if (annees <= 17) {
+                classe = "Classe principale"; echelon = "2e échelon";
+            } else if (annees <= 19) {
+                classe = "Classe principale"; echelon = "3e échelon";
+            } else if (annees <= 21) {
+                classe = "Classe exceptionnelle"; echelon = "1er échelon";
+            } else if (annees <= 23) {
+                classe = "Classe exceptionnelle"; echelon = "2e échelon";
+            } else {
+                classe = "Classe exceptionnelle"; echelon = "3e échelon";
             }
 
             champClasse.value = classe;
+            champEchelon.value = echelon;
         }
 
         dateService.addEventListener("input", calculerTout);
-
         calculerTout();
 
     });
 
 });
 
-
 document.addEventListener("DOMContentLoaded", function () {
 
     const lignes = document.querySelectorAll("tbody tr");
 
     lignes.forEach(ligne => {
 
-        // DATE DE NAISSANCE
-        const dateNaissance = ligne.querySelectorAll('input[placeholder="JJ/MM/AAAA"]')[0];
-
-        // DATE RETRAITE
-const dateRetraite = ligne.querySelector(".date-retraite");
-        function calculerRetraite() {
-
-            const valeur = dateNaissance.value.trim();
-
-            const regex = /^(\d{2})\/(\d{2})\/(\d{4})$/;
-
-            if (!regex.test(valeur)) {
-                dateRetraite.value = "";
-                return;
-            }
-
-            const parties = valeur.split("/");
-
-            let jour = parseInt(parties[0], 10);
-            let mois = parseInt(parties[1], 10);
-            let annee = parseInt(parties[2], 10);
-
-            // +60 ans
-            annee += 60;
-
-            // Reformate JJ/MM/AAAA
-            const jourTxt = String(jour).padStart(2, "0");
-            const moisTxt = String(mois).padStart(2, "0");
-
-            dateRetraite.value = jourTxt + "/" + moisTxt + "/" + annee;
-        }
-
-        dateNaissance.addEventListener("input", calculerRetraite);
-
-        calculerRetraite();
-
-    });
-
-});
-
-
-document.addEventListener("DOMContentLoaded", function () {
-
-    const lignes = document.querySelectorAll("tbody tr");
-
-    lignes.forEach(ligne => {
-
-        // DATE DE NAISSANCE = colonne DATE DE NAIS
-        const dateNaissance =
-            ligne.querySelectorAll('td.cell-blanc input[placeholder="JJ/MM/AAAA"]')[0];
-
-        // DATE RETRAITE
+        const dateNaissance = ligne.querySelectorAll('td.cell-blanc input[placeholder="JJ/MM/AAAA"]')[0];
         const dateRetraite = ligne.querySelector(".date-retraite");
-
-        // ANNEES RESTANTES
         const anneesRestantes = ligne.querySelector(".annees-restantes");
 
         function calculerRetraiteEtReste() {
 
             const valeur = dateNaissance.value.trim();
-
             const regex = /^(\d{2})\/(\d{2})\/(\d{4})$/;
 
             if (!regex.test(valeur)) {
-
                 dateRetraite.value = "";
                 anneesRestantes.value = "";
                 return;
             }
 
             const parties = valeur.split("/");
-
             const jour = parseInt(parties[0], 10);
             const mois = parseInt(parties[1], 10);
             const annee = parseInt(parties[2], 10);
-
-            // =========================
-            // DATE RETRAITE = +60 ANS
-            // =========================
-
             const anneeRetraite = annee + 60;
 
             dateRetraite.value =
@@ -423,33 +258,18 @@ document.addEventListener("DOMContentLoaded", function () {
                 String(mois).padStart(2, "0") + "/" +
                 anneeRetraite;
 
-            // =========================
-            // ANNEES RESTANTES
-            // =========================
-
             const aujourdHui = new Date();
-
-            let reste =
-                anneeRetraite - aujourdHui.getFullYear();
-
-            if (reste < 0) {
-                reste = 0;
-            }
-
+            let reste = anneeRetraite - aujourdHui.getFullYear();
+            if (reste < 0) reste = 0;
             anneesRestantes.value = reste;
         }
 
-        dateNaissance.addEventListener(
-            "input",
-            calculerRetraiteEtReste
-        );
-
+        dateNaissance.addEventListener("input", calculerRetraiteEtReste);
         calculerRetraiteEtReste();
 
     });
 
 });
-
 
 document.addEventListener("DOMContentLoaded", function () {
 
@@ -462,22 +282,18 @@ document.addEventListener("DOMContentLoaded", function () {
         const effTi = ligne.querySelector(".eff-ti");
 
         function calculerTotal() {
-
             const gar = parseInt(effGar.value) || 0;
             const fill = parseInt(effFill.value) || 0;
-
             effTi.value = gar + fill;
         }
 
         effGar.addEventListener("input", calculerTotal);
         effFill.addEventListener("input", calculerTotal);
-
         calculerTotal();
 
     });
 
 });
-
 
 document.addEventListener("DOMContentLoaded", function () {
 
@@ -489,39 +305,28 @@ document.addEventListener("DOMContentLoaded", function () {
         let total = 0;
 
         effTiInputs.forEach(input => {
-
             total += parseInt(input.value) || 0;
-
         });
 
-        // Affiche le total dans toutes les cellules EFF GI
         effGiInputs.forEach(input => {
-
             input.value = total;
-
         });
 
     }
 
-    // Surveille toutes les colonnes EFF TI
     effTiInputs.forEach(input => {
-
         input.addEventListener("input", calculerTotalGeneral);
-
     });
 
-    // Recalcul automatique toutes les 300 ms
     setInterval(calculerTotalGeneral, 300);
-
     calculerTotalGeneral();
 
 });
-document.querySelectorAll(".contact").forEach(input => {
-    input.addEventListener("input", function () {
-        // Supprime tout sauf chiffres
-        this.value = this.value.replace(/\D/g, "");
 
-        // Limite à 10 chiffres
+document.querySelectorAll(".contact").forEach(input => {
+
+    input.addEventListener("input", function () {
+        this.value = this.value.replace(/\D/g, "");
         if (this.value.length > 10) {
             this.value = this.value.slice(0, 10);
         }
@@ -533,7 +338,9 @@ document.querySelectorAll(".contact").forEach(input => {
             this.value = "";
         }
     });
+
 });
+
 document.addEventListener("DOMContentLoaded", function () {
 
     function calculerTotaux() {
@@ -545,7 +352,9 @@ document.addEventListener("DOMContentLoaded", function () {
             const coursEl = row.querySelector(".cours");
             const cours = coursEl ? coursEl.value : "";
 
-            const effTI = parseInt(row.querySelector(".eff-ti")?.value || 0);
+            const effGar  = parseInt(row.querySelector(".eff-gar")?.value  || 0);
+            const effFill = parseInt(row.querySelector(".eff-fill")?.value || 0);
+            const effTI   = effGar + effFill;
 
             const cp1 = row.querySelector(".cp1");
             const cp2 = row.querySelector(".cp2");
@@ -553,40 +362,34 @@ document.addEventListener("DOMContentLoaded", function () {
             const ce2 = row.querySelector(".ce2");
             const cm1 = row.querySelector(".cm1");
             const cm2 = row.querySelector(".cm2");
-
             const mps = row.querySelector(".mps");
             const mms = row.querySelector(".mms");
             const mgs = row.querySelector(".mgs");
 
-            // reset
             [cp1, cp2, ce1, ce2, cm1, cm2, mps, mms, mgs].forEach(el => {
                 if (el) el.value = "";
             });
 
             if (!cours) return;
 
-            // PRIMAIRE
             if (["CP1", "CP1A", "CP1B"].includes(cours)) cp1.value = effTI;
             if (["CP2", "CP2A", "CP2B"].includes(cours)) cp2.value = effTI;
-
             if (["CE1", "CE1A", "CE1B"].includes(cours)) ce1.value = effTI;
             if (["CE2", "CE2A", "CE2B"].includes(cours)) ce2.value = effTI;
-
             if (["CM1", "CM1A", "CM1B"].includes(cours)) cm1.value = effTI;
             if (["CM2", "CM2A", "CM2B"].includes(cours)) cm2.value = effTI;
-
-            // MATERNELLE
-            if (["PS", "PSA", "PSB"].includes(cours)) mps.value = effTI;
-            if (["MS", "MSA", "MSB"].includes(cours)) mms.value = effTI;
-            if (["GS", "GSA", "GSB"].includes(cours)) mgs.value = effTI;
+            if (["PS",  "PSA",  "PSB" ].includes(cours)) mps.value = effTI;
+            if (["MS",  "MSA",  "MSB" ].includes(cours)) mms.value = effTI;
+            if (["GS",  "GSA",  "GSB" ].includes(cours)) mgs.value = effTI;
 
         });
     }
 
-    // 🔥 ULTRA IMPORTANT : déclenchement immédiat
     document.addEventListener("input", function (e) {
         if (
-            e.target.classList.contains("eff-ti") ||
+            e.target.classList.contains("eff-gar")  ||
+            e.target.classList.contains("eff-fill") ||
+            e.target.classList.contains("eff-ti")   ||
             e.target.classList.contains("cours")
         ) {
             calculerTotaux();
@@ -595,16 +398,18 @@ document.addEventListener("DOMContentLoaded", function () {
 
     document.addEventListener("change", function (e) {
         if (
-            e.target.classList.contains("eff-ti") ||
+            e.target.classList.contains("eff-gar")  ||
+            e.target.classList.contains("eff-fill") ||
+            e.target.classList.contains("eff-ti")   ||
             e.target.classList.contains("cours")
         ) {
             calculerTotaux();
         }
     });
 
-    // 🔥 force recalcul initial
     calculerTotaux();
 });
+
 document.addEventListener("input", function (e) {
     if (e.target.classList.contains("cours")) {
         calculerNombreCours();
@@ -613,31 +418,23 @@ document.addEventListener("input", function (e) {
 
 function calculerNombreCours() {
     let total = 0;
-
-    // compter tous les cours sélectionnés
     document.querySelectorAll("select.cours").forEach(sel => {
         if (sel.value !== "") total++;
     });
-
-    // afficher dans toutes les cellules "NOMBRE DE COURS"
     document.querySelectorAll("td.nb-cours input").forEach(cell => {
         cell.value = total;
     });
 }
+
 // ===============================
-// SAUVEGARDE AUTOMATIQUE COMPLETE
+// SAUVEGARDE AUTOMATIQUE
 // ===============================
 
 let timerSave;
 
 document.addEventListener("input", function () {
-
     clearTimeout(timerSave);
-
-    timerSave = setTimeout(() => {
-        sauvegardeAuto();
-    }, 1000);
-
+    timerSave = setTimeout(() => { sauvegardeAuto(); }, 1000);
 });
 
 document.addEventListener("change", function () {
@@ -649,29 +446,21 @@ function sauvegardeAuto() {
     let data = [];
 
     document.querySelectorAll("tbody tr").forEach(row => {
-        const cours = row.querySelector(".cours")?.value || "";
 
         let ligne = {};
 
-        // TOUS LES INPUTS
         row.querySelectorAll("input").forEach((input, index) => {
             ligne["input_" + index] = input.value;
         });
 
-        // TOUS LES SELECTS
         row.querySelectorAll("select").forEach((select, index) => {
             ligne["select_" + index] = select.value;
         });
 
         data.push(ligne);
-
     });
 
-    localStorage.setItem(
-    "tableau_drena_v2",
-    JSON.stringify(data)
-);
-
+    localStorage.setItem("tableau_drena_v2", JSON.stringify(data));
     console.log("Sauvegarde OK");
 }
 
@@ -681,33 +470,24 @@ function sauvegardeAuto() {
 
 window.addEventListener("load", function () {
 
-    // Efface l'ancienne clé décalée
     localStorage.removeItem("tableau_drena");
 
-    let data = JSON.parse(
-        localStorage.getItem("tableau_drena_v2") || "[]"
-    );
+    let data = JSON.parse(localStorage.getItem("tableau_drena_v2") || "[]");
 
     document.querySelectorAll("tbody tr").forEach((row, i) => {
 
         if (!data[i]) return;
 
-        // RESTAURE INPUTS
         row.querySelectorAll("input").forEach((input, index) => {
-
             if (data[i]["input_" + index] !== undefined) {
                 input.value = data[i]["input_" + index];
             }
-
         });
 
-        // RESTAURE SELECTS
         row.querySelectorAll("select").forEach((select, index) => {
-
             if (data[i]["select_" + index] !== undefined) {
                 select.value = data[i]["select_" + index];
             }
-
         });
 
     });
@@ -715,6 +495,7 @@ window.addEventListener("load", function () {
     console.log("Données restaurées");
 
 });
+
 // =======================================
 // MATRICULES AUTORISÉS
 // =======================================
@@ -739,81 +520,46 @@ const matricules = [
 "446064U","477214W","458651R"
 ];
 
-// =======================================
-// CHARGEMENT PAGE
-// =======================================
-
-
 function verifierMatricule() {
 
-    const loginPage =
-        document.getElementById("login-page");
+    const loginPage = document.getElementById("login-page");
+    const tableContainer = document.querySelector(".table-container");
+    const messageErreur = document.getElementById("message-erreur");
 
-    const tableContainer =
-        document.querySelector(".table-container");
-
-    const messageErreur =
-        document.getElementById("message-erreur");
-
-    let valeur =
-        document.getElementById("matricule")
-        .value
-        .trim()
-        .toUpperCase();
+    let valeur = document.getElementById("matricule").value.trim().toUpperCase();
 
     if (matricules.includes(valeur)) {
-
         loginPage.style.display = "none";
-
         tableContainer.style.display = "block";
-
         messageErreur.innerHTML = "";
-
     } else {
-
-        messageErreur.innerHTML =
-            "MATRICULE INCORRECT";
-
+        messageErreur.innerHTML = "MATRICULE INCORRECT";
     }
 
 }
 
-// =======================================
-// TOUCHE ENTREE
-// =======================================
-
 document.addEventListener("keydown", function(e){
-
     if(e.key === "Enter") {
-
-        const champ =
-            document.getElementById("matricule");
-
+        const champ = document.getElementById("matricule");
         if(document.activeElement === champ) {
-
             verifierMatricule();
-
         }
-
     }
-
 });
-
 
 function aInternet() {
     return navigator.onLine;
 }
+
 document.addEventListener("DOMContentLoaded", function () {
-
     const btn = document.getElementById("btn-enregistrer");
-
     if (btn) {
         btn.addEventListener("click", function () {
             enregistrerEtExporter();
         });
     }
-
 });
+
 function enregistrerEtExporter() {
 
     let data = [];
@@ -822,62 +568,56 @@ function enregistrerEtExporter() {
 
         const inputs  = row.querySelectorAll("input");
         const selects = row.querySelectorAll("select");
-
         const cours = row.querySelector(".cours")?.value || "";
         if (!cours) return;
 
-        // Debug : affiche tous les inputs dans la console
-        inputs.forEach((inp, i) => {
-            console.log("input[" + i + "] = " + inp.value);
-        });
-
         const ligne = {
-    secteur:          inputs[0]?.value  || "",
-    commune:          inputs[1]?.value  || "",
-    conseiller:       inputs[2]?.value  || "",
-    ecole:            inputs[3]?.value  || "",
-    milieu:           inputs[4]?.value  || "",
-    code_ecole:       inputs[5]?.value  || "",   // ← NOUVEAU
-    numero:           inputs[6]?.value  || "",   // était [5]
-    nom:              inputs[7]?.value  || "",   // était [6]
-    situation:        selects[0]?.value || "",
-    nbre_enfants:     inputs[8]?.value  || "",   // était [7]
-    genre:            selects[1]?.value || "",
-    matricule:        inputs[9]?.value  || "",   // était [8]
-    date_naissance:   inputs[10]?.value || "",   // était [9]
-    lieu_naissance:   inputs[11]?.value || "",   // était [10]
-    emploi:           selects[2]?.value || "",
-    fonction:         selects[3]?.value || "",
-    prise_service:    inputs[12]?.value || "",   // était [11]
-    date_drena:       inputs[13]?.value || "",   // était [12]
-    date_iepp:        inputs[14]?.value || "",   // était [13]
-    date_poste:       inputs[15]?.value || "",   // était [14]
-    grade:            inputs[16]?.value || "",   // était [15]
-    annees_service:   inputs[17]?.value || "",   // était [16]
-    classe:           inputs[18]?.value || "",   // était [17]
-    echelon:          inputs[19]?.value || "",   // était [18]
-    date_retraite:    inputs[20]?.value || "",   // était [19]
-    annees_restantes: inputs[21]?.value || "",   // était [20]
-    nb_cours:         inputs[22]?.value || "",   // était [21]
-    cours:            cours,
-    eff_gar:          inputs[23]?.value || "",   // était [22]
-    eff_fill:         inputs[24]?.value || "",   // était [23]
-    eff_ti:           inputs[25]?.value || "",   // était [24]
-    eff_gi:           inputs[26]?.value || "",   // était [25]
-    contact:          inputs[27]?.value || "",   // était [26]
-    email:            inputs[28]?.value || "",   // était [27]
-    mps:              inputs[29]?.value || "",   // était [28]
-    mms:              inputs[30]?.value || "",   // était [29]
-    mgs:              inputs[31]?.value || "",   // était [30]
-    cpu:              inputs[32]?.value || "",   // était [31]
-    cpp:              inputs[33]?.value || "",   // était [32]
-    cp1:              inputs[34]?.value || "",   // était [33]
-    cp2:              inputs[35]?.value || "",   // était [34]
-    ce1:              inputs[36]?.value || "",   // était [35]
-    ce2:              inputs[37]?.value || "",   // était [36]
-    cm1:              inputs[38]?.value || "",   // était [37]
-    cm2:              inputs[39]?.value || ""    // était [38]
-};
+            secteur:          inputs[0]?.value  || "",
+            commune:          inputs[1]?.value  || "",
+            conseiller:       inputs[2]?.value  || "",
+            ecole:            inputs[3]?.value  || "",
+            milieu:           inputs[4]?.value  || "",
+            code_ecole:       inputs[5]?.value  || "",
+            numero:           inputs[6]?.value  || "",
+            nom:              inputs[7]?.value  || "",
+            situation:        selects[0]?.value || "",
+            nbre_enfants:     inputs[8]?.value  || "",
+            genre:            selects[1]?.value || "",
+            matricule:        inputs[9]?.value  || "",
+            date_naissance:   inputs[10]?.value || "",
+            lieu_naissance:   inputs[11]?.value || "",
+            emploi:           selects[2]?.value || "",
+            fonction:         selects[3]?.value || "",
+            prise_service:    inputs[12]?.value || "",
+            date_drena:       inputs[13]?.value || "",
+            date_iepp:        inputs[14]?.value || "",
+            date_poste:       inputs[15]?.value || "",
+            grade:            inputs[16]?.value || "",
+            annees_service:   inputs[17]?.value || "",
+            classe:           inputs[18]?.value || "",
+            echelon:          inputs[19]?.value || "",
+            date_retraite:    inputs[20]?.value || "",
+            annees_restantes: inputs[21]?.value || "",
+            nb_cours:         inputs[22]?.value || "",
+            cours:            cours,
+            eff_gar:          inputs[23]?.value || "",
+            eff_fill:         inputs[24]?.value || "",
+            eff_ti:           inputs[25]?.value || "",
+            eff_gi:           inputs[26]?.value || "",
+            contact:          inputs[27]?.value || "",
+            email:            inputs[28]?.value || "",
+            mps:              inputs[29]?.value || "",
+            mms:              inputs[30]?.value || "",
+            mgs:              inputs[31]?.value || "",
+            cpu:              inputs[32]?.value || "",
+            cpp:              inputs[33]?.value || "",
+            cp1:              inputs[34]?.value || "",
+            cp2:              inputs[35]?.value || "",
+            ce1:              inputs[36]?.value || "",
+            ce2:              inputs[37]?.value || "",
+            cm1:              inputs[38]?.value || "",
+            cm2:              inputs[39]?.value || ""
+        };
 
         data.push(ligne);
     });
@@ -889,7 +629,7 @@ function enregistrerEtExporter() {
         method: "POST",
         body: formData
     })
-   .then(response => response.text())
+    .then(response => response.text())
     .then(result => {
         alert("Données envoyées avec succès !");
         afficherResume();
@@ -910,6 +650,7 @@ function afficherResume() {
         table.style.cssText = "display:table !important; width:100%; min-width:unset; border-collapse:collapse; font-size:9px; white-space:nowrap;";
     }
 }
+
 // =======================================
 // BOUTON RÉINITIALISER
 // =======================================
