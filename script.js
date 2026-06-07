@@ -1,4 +1,4 @@
-const URL_SCRIPT ="https://script.google.com/macros/s/AKfycbygolZqbBT0WsA7e5XetOCmAkUggBlfaBy23smNDYnUz0_bZj37MgLQqYC7__lK0oo6Zg/exec";
+const URL_SCRIPT ="https://script.google.com/macros/s/AKfycbz-8WIYaHjjOzPU_qDAiPhBty2IT5Xad0UgzWNFtcc5iN8sEc9TCsyDNpkPKEaDQv5_dg/exec";
 // Vérification au chargement
 function verifierConnexion() {
 
@@ -77,7 +77,8 @@ document.addEventListener("DOMContentLoaded", function () {
 
     // 4 = milieu
     synchroniserColonne(4);
-
+// 5 = code école
+synchroniserColonne(5);
 });
 
 document.addEventListener("DOMContentLoaded", function () {
@@ -828,51 +829,52 @@ function enregistrerEtExporter() {
         });
 
         const ligne = {
-            secteur:          inputs[0]?.value  || "",
-            commune:          inputs[1]?.value  || "",
-            conseiller:       inputs[2]?.value  || "",
-            ecole:            inputs[3]?.value  || "",
-            milieu:           inputs[4]?.value  || "",
-            numero:           inputs[5]?.value  || "",
-            nom:              inputs[6]?.value  || "",
-            situation:        selects[0]?.value || "",
-            nbre_enfants:     inputs[7]?.value  || "",
-            genre:            selects[1]?.value || "",
-            matricule:        inputs[8]?.value  || "",
-            date_naissance:   inputs[9]?.value  || "",
-            lieu_naissance:   inputs[10]?.value || "",
-            emploi:           selects[2]?.value || "",
-            fonction:         selects[3]?.value || "",
-            prise_service:    inputs[11]?.value || "",
-            date_drena:       inputs[12]?.value || "",
-            date_iepp:        inputs[13]?.value || "",
-            date_poste:       inputs[14]?.value || "",
-            grade:            inputs[15]?.value || "",
-            annees_service:   inputs[16]?.value || "",
-            classe:           inputs[17]?.value || "",
-            echelon:          inputs[18]?.value || "",
-            date_retraite:    inputs[19]?.value || "",
-            annees_restantes: inputs[20]?.value || "",
-            nb_cours:         inputs[21]?.value || "",
-            cours:            cours,
-            eff_gar:          inputs[22]?.value || "",
-            eff_fill:         inputs[23]?.value || "",
-            eff_ti:           inputs[24]?.value || "",
-            eff_gi:           inputs[25]?.value || "",
-            contact:          inputs[26]?.value || "",
-            email:            inputs[27]?.value || "",
-            mps:              inputs[28]?.value || "",
-            mms:              inputs[29]?.value || "",
-            mgs:              inputs[30]?.value || "",
-            cpu:              inputs[31]?.value || "",
-            cpp:              inputs[32]?.value || "",
-            cp1:              inputs[33]?.value || "",
-            cp2:              inputs[34]?.value || "",
-            ce1:              inputs[35]?.value || "",
-            ce2:              inputs[36]?.value || "",
-            cm1:              inputs[37]?.value || "",
-            cm2:              inputs[38]?.value || ""
-        };
+    secteur:          inputs[0]?.value  || "",
+    commune:          inputs[1]?.value  || "",
+    conseiller:       inputs[2]?.value  || "",
+    ecole:            inputs[3]?.value  || "",
+    milieu:           inputs[4]?.value  || "",
+    code_ecole:       inputs[5]?.value  || "",   // ← NOUVEAU
+    numero:           inputs[6]?.value  || "",   // était [5]
+    nom:              inputs[7]?.value  || "",   // était [6]
+    situation:        selects[0]?.value || "",
+    nbre_enfants:     inputs[8]?.value  || "",   // était [7]
+    genre:            selects[1]?.value || "",
+    matricule:        inputs[9]?.value  || "",   // était [8]
+    date_naissance:   inputs[10]?.value || "",   // était [9]
+    lieu_naissance:   inputs[11]?.value || "",   // était [10]
+    emploi:           selects[2]?.value || "",
+    fonction:         selects[3]?.value || "",
+    prise_service:    inputs[12]?.value || "",   // était [11]
+    date_drena:       inputs[13]?.value || "",   // était [12]
+    date_iepp:        inputs[14]?.value || "",   // était [13]
+    date_poste:       inputs[15]?.value || "",   // était [14]
+    grade:            inputs[16]?.value || "",   // était [15]
+    annees_service:   inputs[17]?.value || "",   // était [16]
+    classe:           inputs[18]?.value || "",   // était [17]
+    echelon:          inputs[19]?.value || "",   // était [18]
+    date_retraite:    inputs[20]?.value || "",   // était [19]
+    annees_restantes: inputs[21]?.value || "",   // était [20]
+    nb_cours:         inputs[22]?.value || "",   // était [21]
+    cours:            cours,
+    eff_gar:          inputs[23]?.value || "",   // était [22]
+    eff_fill:         inputs[24]?.value || "",   // était [23]
+    eff_ti:           inputs[25]?.value || "",   // était [24]
+    eff_gi:           inputs[26]?.value || "",   // était [25]
+    contact:          inputs[27]?.value || "",   // était [26]
+    email:            inputs[28]?.value || "",   // était [27]
+    mps:              inputs[29]?.value || "",   // était [28]
+    mms:              inputs[30]?.value || "",   // était [29]
+    mgs:              inputs[31]?.value || "",   // était [30]
+    cpu:              inputs[32]?.value || "",   // était [31]
+    cpp:              inputs[33]?.value || "",   // était [32]
+    cp1:              inputs[34]?.value || "",   // était [33]
+    cp2:              inputs[35]?.value || "",   // était [34]
+    ce1:              inputs[36]?.value || "",   // était [35]
+    ce2:              inputs[37]?.value || "",   // était [36]
+    cm1:              inputs[38]?.value || "",   // était [37]
+    cm2:              inputs[39]?.value || ""    // était [38]
+};
 
         data.push(ligne);
     });
