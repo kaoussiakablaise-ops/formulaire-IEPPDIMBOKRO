@@ -668,9 +668,9 @@ function sauvegardeAuto() {
     });
 
     localStorage.setItem(
-        "tableau_drena",
-        JSON.stringify(data)
-    );
+    "tableau_drena_v2",
+    JSON.stringify(data)
+);
 
     console.log("Sauvegarde OK");
 }
@@ -681,8 +681,11 @@ function sauvegardeAuto() {
 
 window.addEventListener("load", function () {
 
+    // Efface l'ancienne clé décalée
+    localStorage.removeItem("tableau_drena");
+
     let data = JSON.parse(
-        localStorage.getItem("tableau_drena") || "[]"
+        localStorage.getItem("tableau_drena_v2") || "[]"
     );
 
     document.querySelectorAll("tbody tr").forEach((row, i) => {
