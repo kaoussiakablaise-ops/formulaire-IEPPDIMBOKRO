@@ -1535,14 +1535,75 @@ enregistrerDonnees();
 });
 
 function enregistrerDonnees() {
-    
 
-    const tbodyResume =
-document.getElementById("resumeBody");
-
+    const tbodyResume = document.getElementById("resumeBody");
     tbodyResume.innerHTML = "";
+
     const resumeHead = document.getElementById("resumeHead");
-tr.innerHTML = `
+    resumeHead.innerHTML = `
+      <th>Secteur</th>
+      <th>Commune</th>
+      <th>Conseiller</th>
+      <th>École</th>
+      <th>Milieu</th>
+      <th>Code École</th>
+      <th>N°</th>
+      <th>Nom & Prénoms</th>
+      <th>Situation</th>
+      <th>Nbre enfants</th>
+      <th>Genre</th>
+      <th>Matricule</th>
+      <th>Date Nais.</th>
+      <th>Lieu Nais.</th>
+      <th>Emploi</th>
+      <th>Fonction</th>
+      <th>1ère Prise service</th>
+      <th>Date DRENA</th>
+      <th>Date IEPP</th>
+      <th>Date arrivée poste</th>
+      <th>Grade</th>
+      <th>Années service</th>
+      <th>Classe</th>
+      <th>Échelon</th>
+      <th>Date retraite</th>
+      <th>Années restantes</th>
+      <th>Nb cours</th>
+      <th>Cours</th>
+      <th>Eff Gar</th>
+      <th>Eff Fill</th>
+      <th>Eff TI</th>
+      <th>Eff GI</th>
+      <th>Contact</th>
+      <th>Email</th>
+      <th>MPS</th>
+      <th>MMS</th>
+      <th>MGS</th>
+      <th>CPU</th>
+      <th>CPP</th>
+      <th>CP1</th>
+      <th>CP2</th>
+      <th>CE1</th>
+      <th>CE2</th>
+      <th>CM1</th>
+      <th>CM2</th>
+    `;
+
+    document.querySelectorAll("tbody tr").forEach(row => {
+
+        const cours = row.querySelector(".cours")?.value || "";
+        if (cours === "") return;
+
+        const inputs  = row.querySelectorAll("input");
+        const selects = row.querySelectorAll("select");
+
+        const situation = selects[0]?.value || "";
+        const genre     = selects[1]?.value || "";
+        const emploi    = selects[2]?.value || "";
+        const fonction  = selects[3]?.value || "";
+
+        let tr = document.createElement("tr");
+
+        tr.innerHTML = `
 <td>${inputs[0]?.value  || ""}</td>
 <td>${inputs[1]?.value  || ""}</td>
 <td>${inputs[2]?.value  || ""}</td>
@@ -1588,86 +1649,15 @@ tr.innerHTML = `
 <td>${inputs[37]?.value || ""}</td>
 <td>${inputs[38]?.value || ""}</td>
 <td>${inputs[39]?.value || ""}</td>
-`;
-
-    document.querySelectorAll("tbody tr").forEach(row => {
-
-        const cours =
-            row.querySelector(".cours")?.value || "";
-            
-
-        if(cours === "") return;
-
-        const inputs =
-            row.querySelectorAll("input");
-
-        const selects =
-            row.querySelectorAll("select");
-            const situation = selects[0]?.value || "";
-    const genre     = selects[1]?.value || "";
-    const emploi    = selects[2]?.value || "";
-    const fonction  = selects[3]?.value || "";
-            
-
-        let tr = document.createElement("tr");
-
-        tr.innerHTML = `
-
-<td>${inputs[0]?.value || ""}</td>
-<td>${inputs[1]?.value || ""}</td>
-<td>${inputs[2]?.value || ""}</td>
-<td>${inputs[3]?.value || ""}</td>
-<td>${inputs[4]?.value || ""}</td>
-<td>${inputs[5]?.value || ""}</td>
-<td>${inputs[6]?.value || ""}</td>
-<td>${situation}</td>
-<td>${inputs[7]?.value || ""}</td>
-<td>${genre}</td>
-<td>${inputs[8]?.value || ""}</td>
-<td>${inputs[9]?.value || ""}</td>
-<td>${inputs[10]?.value || ""}</td>
-<td>${emploi}</td>
-<td>${fonction}</td>
-<td>${inputs[11]?.value || ""}</td>
-<td>${inputs[12]?.value || ""}</td>
-<td>${inputs[13]?.value || ""}</td>
-<td>${inputs[14]?.value || ""}</td>
-<td>${inputs[15]?.value || ""}</td>
-<td>${inputs[16]?.value || ""}</td>
-<td>${inputs[17]?.value || ""}</td>
-<td>${inputs[18]?.value || ""}</td>
-<td>${inputs[19]?.value || ""}</td>
-<td>${inputs[20]?.value || ""}</td>
-<td>${inputs[21]?.value || ""}</td>
-<td>${cours}</td>
-<td>${inputs[22]?.value || ""}</td>
-<td>${inputs[23]?.value || ""}</td>
-<td>${inputs[24]?.value || ""}</td>
-<td>${inputs[25]?.value || ""}</td>
-<td>${inputs[26]?.value || ""}</td>
-<td>${inputs[27]?.value || ""}</td>
-<td>${inputs[28]?.value || ""}</td>
-<td>${inputs[29]?.value || ""}</td>
-<td>${inputs[30]?.value || ""}</td>
-<td>${inputs[31]?.value || ""}</td>
-<td>${inputs[32]?.value || ""}</td>
-<td>${inputs[33]?.value || ""}</td>
-<td>${inputs[34]?.value || ""}</td>
-<td>${inputs[35]?.value || ""}</td>
-<td>${inputs[36]?.value || ""}</td>
-<td>${inputs[37]?.value || ""}</td>
-<td>${inputs[38]?.value || ""}</td>
-`;
+        `;
 
         tbodyResume.appendChild(tr);
-
     });
 
     alert("Enregistrement terminé !");
 
-// Force l'affichage du tableau résumé sur mobile
-document.getElementById("tableResume").style.display = "table";
-document.getElementById("tableResume").closest("div").style.display = "block";
+    document.getElementById("tableResume").style.display = "table";
+    document.getElementById("tableResume").closest("div").style.display = "block";
 }
 </script>
 <h2 style="margin-top:50px;">
