@@ -910,3 +910,17 @@ function afficherResume() {
         table.style.cssText = "display:table !important; width:100%; min-width:unset; border-collapse:collapse; font-size:9px; white-space:nowrap;";
     }
 }
+// =======================================
+// BOUTON RÉINITIALISER
+// =======================================
+document.addEventListener("DOMContentLoaded", function () {
+    const btnReinit = document.getElementById("btn-reinitialiser");
+    if (btnReinit) {
+        btnReinit.addEventListener("click", function () {
+            if (confirm("Voulez-vous vraiment effacer toutes les données du formulaire ?")) {
+                localStorage.removeItem("tableau_drena_v2");
+                location.reload();
+            }
+        });
+    }
+});
